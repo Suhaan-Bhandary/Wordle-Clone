@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.ecb9597f.css",
-    "main.js": "/static/js/main.832bd089.js",
-    "static/js/787.e01666d6.chunk.js": "/static/js/787.e01666d6.chunk.js",
-    "index.html": "/index.html",
-    "main.ecb9597f.css.map": "/static/css/main.ecb9597f.css.map",
-    "main.832bd089.js.map": "/static/js/main.832bd089.js.map",
-    "787.e01666d6.chunk.js.map": "/static/js/787.e01666d6.chunk.js.map"
+    "main.css": "/Wordle-Clone/static/css/main.ecb9597f.css",
+    "main.js": "/Wordle-Clone/static/js/main.0fa5c07a.js",
+    "static/js/787.e01666d6.chunk.js": "/Wordle-Clone/static/js/787.e01666d6.chunk.js",
+    "index.html": "/Wordle-Clone/index.html",
+    "main.ecb9597f.css.map": "/Wordle-Clone/static/css/main.ecb9597f.css.map",
+    "main.0fa5c07a.js.map": "/Wordle-Clone/static/js/main.0fa5c07a.js.map",
+    "787.e01666d6.chunk.js.map": "/Wordle-Clone/static/js/787.e01666d6.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ecb9597f.css",
-    "static/js/main.832bd089.js"
+    "static/js/main.0fa5c07a.js"
   ]
 }

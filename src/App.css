@@ -1,0 +1,35 @@
+.App {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background-color: var(--bg-color);
+
+  --bg-color: #f7fafc;
+  --border-color: black;
+  --text-color: #141c3a;
+}
+
+.App.dark {
+  --bg-color: #141c3a;
+  --border-color: white;
+  --text-color: white;
+}
+
+.App h1 {
+  font-size: 4rem;
+  color: var(--text-color);
+}
+
+.App .container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.App input {
+  padding: 5px 10px;
+}

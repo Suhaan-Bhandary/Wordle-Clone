@@ -17,20 +17,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.not-present {
-  background: gray !important;
-}
-
-.correct{
-  background: green !important;
-}
-
-.present {
-  background: orange !important;
-}
-
-td{
-  width: 20px;
-  height: 20px;
-}

@@ -1,14 +1,15 @@
+import "./Grid.css";
 import getRowCode from "../../utils/getRowCode";
 
 const codeName = {
   0: "not-present",
   1: "present",
-  2: "correct"
+  2: "correct",
 };
 
 const Grid = ({ grid, solution, guessCount }) => {
   return (
-    <table>
+    <table className="Grid">
       <tbody>
         {grid.map((row, i) => {
           // If i is less than guess count then it will have words in it

@@ -1,8 +1,9 @@
 import "./App.css";
 import Grid from "./components/Grid/Grid";
+import Button from "./components/Button/Button";
 
 // Hooks
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useLocalStorage from "./hooks/useLocalStorage";
 
 // Util functions
@@ -17,6 +18,15 @@ function App() {
 
   // Input from the user
   const [word, setWord] = useState("");
+
+  // Theme state
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (guessCount === 5) {
+      alert(`You lose!, the word was ${solution}`);
+    }
+  }, [solution, guessCount]);
 
   const handleSubmit = () => {
     // Converting the user input to lower case, since solution is always in lower case
@@ -46,24 +56,29 @@ function App() {
   };
 
   return (
-    <div className="App">
-      
-      <h1>Wordle</h1>
-      <h2>guessCount: {guessCount}</h2>
-      <h2>word: {solution}</h2>
+    <div className={`App ${isDarkMode ? "dark" : ""}`}>
+      <h1 onClick={() => setIsDarkMode(!isDarkMode)}>Wordle</h1>
+      <Grid grid={grid} solution={solution} guessCount={guessCount} />
 
-      <Grid grid={grid} solution={solution} guessCount={guessCount}/>
-
-      <input
-        type="text"
-        value={word}
-        onChange={(e) => setWord(e.target.value)}
+      <div className="container">
+        <input
+          type="text"
+          value={word}
+          onChange={(e) => setWord(e.target.value)}
+        />
+        <Button
+          text={"Guess"}
+          onClick={handleSubmit}
+          buttonStyle={"btn--primary--solid"}
+          disabled={guessCount >= 5}
+        />
+      </div>
+      <Button
+        text={"Restart"}
+        onClick={handleRestart}
+        buttonStyle={"btn--danger--solid"}
+        hidden={!(guessCount >= 5)}
       />
-      <button disabled={guessCount >= 5} onClick={handleSubmit}>
-        Enter
-      </button>
-      <button onClick={handleRestart}>Restart</button>
-
     </div>
   );
 }

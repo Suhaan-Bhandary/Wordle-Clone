@@ -18,15 +18,15 @@ code {
     monospace;
 }
 
-.normal {
-  background: brown !important;
+.not-present {
+  background: gray !important;
 }
 
-.done{
+.correct{
   background: green !important;
 }
 
-.orange {
+.present {
   background: orange !important;
 }
 

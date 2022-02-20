@@ -1,86 +1,71 @@
-import { useState } from "react";
 import "./App.css";
 import Grid from "./components/Grid/Grid";
+
+// Hooks
+import { useState } from "react";
 import useLocalStorage from "./hooks/useLocalStorage";
 
-function App() {
-  const [grid, setGrid] = useLocalStorage("grid", getInitialGrid);
-  const [guess, setGuess] = useLocalStorage("guess", 0);
-  const [word, setWord] = useLocalStorage("word", getRandomWord);
+// Util functions
+import getRandomWord from "./utils/getRandomWord";
+import { getInitialGrid, getUpdatedGrid } from "./utils/generateGrid";
 
-  const [userGuess, setuserGuess] = useState("");
+function App() {
+  // Grid, solution and the count of the user
+  const [grid, setGrid] = useLocalStorage("grid", getInitialGrid());
+  const [solution, setSolution] = useLocalStorage("solution", getRandomWord);
+  const [guessCount, setGuessCount] = useLocalStorage("guessCount", 0);
+
+  // Input from the user
+  const [word, setWord] = useState("");
 
   const handleSubmit = () => {
-    // If Last guess is also wrong
-    if (guess >= 5) {
-      setGrid(getInitialGrid());
-      setGuess(0);
-      return;
-    }
+    // Converting the user input to lower case, since solution is always in lower case
+    let lowerCaseWord = word.toLowerCase();
 
-    // First check if the length is same of not
-    if (userGuess.length !== 5) {
+    // Check if the word given by the user is of 5 chars only
+    if (word.length !== 5) {
       alert("Please enter a word with 5 characters only");
       return;
     }
 
-    // Now check if the user word is same as the word
-    if (userGuess === word) {
-      alert(`User won the game in ${guess} guesses`);
-    }
+    // Increasing the guess count
+    setGrid(getUpdatedGrid(grid, guessCount, lowerCaseWord));
+    setGuessCount((guessCount) => guessCount + 1);
 
-    // Replace the level with the current word
-    let newGrid = [];
-    for (let i = 0; i < 5; i++) {
-      let row = [];
-      for (let j = 0; j < 5; j++) {
-        row.push(grid[i][j]);
-      }
-      newGrid.push(row);
+    // Handle winning condition
+    if (lowerCaseWord === solution) {
+      alert(`User won the game in ${guessCount} guesses`);
     }
+  };
 
-    for (let i = 0; i < 5; i++) {
-      newGrid[guess][i] = userGuess[i];
-    }
-
-    console.log(newGrid);
-    setGrid(newGrid);
-    setGuess((guess) => guess + 1);
+  const handleRestart = () => {
+    // Creatin a new Game for the user
+    setGuessCount(0);
+    setSolution(getRandomWord());
+    setGrid(getInitialGrid());
   };
 
   return (
     <div className="App">
+      
       <h1>Wordle</h1>
-      <h2>Guess: {guess}</h2>
-      <h2>word: {word}</h2>
+      <h2>guessCount: {guessCount}</h2>
+      <h2>word: {solution}</h2>
 
-      <Grid grid={grid} word={word} />
+      <Grid grid={grid} solution={solution} guessCount={guessCount}/>
 
       <input
         type="text"
-        value={userGuess}
-        onChange={(e) => setuserGuess(e.target.value)}
+        value={word}
+        onChange={(e) => setWord(e.target.value)}
       />
-      <button onClick={handleSubmit}>Enter</button>
+      <button disabled={guessCount >= 5} onClick={handleSubmit}>
+        Enter
+      </button>
+      <button onClick={handleRestart}>Restart</button>
+
     </div>
   );
 }
-
-const getInitialGrid = () => {
-  let grid = [];
-  for (let i = 0; i < 5; i++) {
-    let row = [];
-    for (let j = 0; j < 5; j++) {
-      row.push("0");
-    }
-    grid.push(row);
-  }
-
-  return grid;
-};
-
-const getRandomWord = () => {
-  return "hanna";
-};
 
 export default App;
